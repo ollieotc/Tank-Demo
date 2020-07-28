@@ -1,0 +1,19 @@
+{
+    "version": 5,
+    "options": {
+        "extend": 1,
+        "layoutGap": 1,
+        "useExtension": 1,
+        "sizeMode": "free",
+        "layoutMath": "0"
+    },
+    "projectName": "gameImg",
+    "files": [
+        "./../img/tank_red.png",
+        "./../img/tank_green.png",
+        "./../img/tank_blue.png",
+        "./../img/hay.png",
+        "./../img/grass.png",
+        "./../img/bullet.png"
+    ]
+}

@@ -1,0 +1,51 @@
+{
+	"groups": [
+		{
+			"keys": "boom_ske_json,boom_tex_json,boom_tex_png,shot_ske_json,shot_tex_json,shot_tex_png,bg_png,gameImg_json",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/animation/boom_tex.png",
+			"type": "image",
+			"name": "boom_tex_png"
+		},
+		{
+			"url": "assets/animation/shot_tex.png",
+			"type": "image",
+			"name": "shot_tex_png"
+		},
+		{
+			"url": "assets/animation/boom_ske.json",
+			"type": "json",
+			"name": "boom_ske_json"
+		},
+		{
+			"url": "assets/animation/shot_ske.json",
+			"type": "json",
+			"name": "shot_ske_json"
+		},
+		{
+			"url": "assets/animation/boom_tex.json",
+			"type": "json",
+			"name": "boom_tex_json"
+		},
+		{
+			"url": "assets/animation/shot_tex.json",
+			"type": "json",
+			"name": "shot_tex_json"
+		},
+		{
+			"url": "assets/json/gameImg.json",
+			"type": "sheet",
+			"name": "gameImg_json",
+			"subkeys": "bullet_png,grass_png,hay_png,tank_blue_png,tank_green_png,tank_red_png"
+		},
+		{
+			"url": "assets/img/bg.png",
+			"type": "image",
+			"name": "bg_png"
+		}
+	]
+}

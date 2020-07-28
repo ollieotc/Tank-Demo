@@ -1,0 +1,10 @@
+{
+	"skins": {
+		"TableEui": "resource/eui_skins/scene/TableEui.exml"
+	},
+	"autoGenerateExmlsList": true,
+	"exmls": [
+		"resource/eui_skins/scene/TableEui.exml"
+	],
+	"path": "resource/default.thm.json"
+}
