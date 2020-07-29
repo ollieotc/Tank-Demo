@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "boom_ske_json,boom_tex_json,boom_tex_png,shot_ske_json,shot_tex_json,shot_tex_png,bg_png,gameImg_json",
+			"keys": "boom_ske_json,boom_tex_json,boom_tex_png,shot_ske_json,shot_tex_json,shot_tex_png,bg_png,tank_red_png,tank_green_png,tank_blue_png,hay_png,grass_png,bullet_png",
 			"name": "preload"
 		}
 	],
@@ -37,15 +37,39 @@
 			"name": "shot_tex_json"
 		},
 		{
-			"url": "assets/json/gameImg.json",
-			"type": "sheet",
-			"name": "gameImg_json",
-			"subkeys": "bullet_png,grass_png,hay_png,tank_blue_png,tank_green_png,tank_red_png"
-		},
-		{
 			"url": "assets/img/bg.png",
 			"type": "image",
 			"name": "bg_png"
+		},
+		{
+			"url": "assets/img/bullet.png",
+			"type": "image",
+			"name": "bullet_png"
+		},
+		{
+			"url": "assets/img/grass.png",
+			"type": "image",
+			"name": "grass_png"
+		},
+		{
+			"url": "assets/img/hay.png",
+			"type": "image",
+			"name": "hay_png"
+		},
+		{
+			"url": "assets/img/tank_blue.png",
+			"type": "image",
+			"name": "tank_blue_png"
+		},
+		{
+			"url": "assets/img/tank_green.png",
+			"type": "image",
+			"name": "tank_green_png"
+		},
+		{
+			"url": "assets/img/tank_red.png",
+			"type": "image",
+			"name": "tank_red_png"
 		}
 	]
 }

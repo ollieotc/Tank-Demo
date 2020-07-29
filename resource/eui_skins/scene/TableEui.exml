@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="TableEuiSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"  width="1920" height="1080">
-	<w:Config id="17394bcd933" ></w:Config>
-	<e:Rect top="0" bottom="0" left="0" right="0" strokeColor="0xc62323" fillColor="0x515151"/>
-	<e:Image id="hay" x="668" y="720" source="hay_png"/>
-</e:Skin>

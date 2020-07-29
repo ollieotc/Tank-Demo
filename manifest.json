@@ -11,15 +11,20 @@
 		"libs/greensock/greensock.js"
 	],
 	"game": [
-		"bin-debug/center/Platform.js",
 		"bin-debug/model/SceneModel.js",
-		"bin-debug/LoadingUI.js",
-		"bin-debug/Main.js",
+		"bin-debug/component/Tank.js",
+		"bin-debug/center/AssetAdapter.js",
 		"bin-debug/center/GameCenter.js",
-		"bin-debug/eui/scene/TableEui.js",
+		"bin-debug/center/Platform.js",
+		"bin-debug/center/ThemeAdapter.js",
+		"bin-debug/component/BgMap.js",
+		"bin-debug/Main.js",
 		"bin-debug/logic/InitLogic.js",
-		"bin-debug/logic/SceneLogic.js",
+		"bin-debug/logic/Scene.js",
+		"bin-debug/logic/scene/GameContainer.js",
 		"bin-debug/model/GameModel.js",
-		"bin-debug/model/Interface.js"
+		"bin-debug/model/Interface.js",
+		"bin-debug/LoadingUI.js",
+		"bin-debug/utils/GameKeyboard.js"
 	]
 }

@@ -23,6 +23,9 @@ class Main extends egret.DisplayObjectContainer {
             egret.ticker.resume();
         }
 
+        egret.registerImplementation("eui.IAssetAdapter", new AssetAdapter());
+        egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
+
         GameCenter.sceneRoot = this;
 
         this.runGame().catch(e => { console.log(e); })
@@ -37,9 +40,9 @@ class Main extends egret.DisplayObjectContainer {
         try {
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView);
-            await this.loadTheme();
             await RES.loadConfig("resource/default.res.json", "resource/");
             await RES.loadGroup("preload", 0, loadingView);
+            await this.loadTheme();
             this.stage.removeChild(loadingView);
         }
         catch (e) {
@@ -57,8 +60,9 @@ class Main extends egret.DisplayObjectContainer {
 
     /** Create a game scene */
     private createGameScene() {
-        let initialStatus: boolean = SceneLogic.viewInit();
-        if (initialStatus) InitLogic.init();
+        let scene = new game.Scene();
+        let initialStatus: boolean = scene.viewInit();
+        if (initialStatus) { game.init(); }
     }
 
 }

@@ -1,7 +1,7 @@
 {"file":"gameImg.png","frames":{
-"tank_red_png":{"x":337,"y":334,"w":164,"h":164,"offX":7,"offY":12,"sourceW":174,"sourceH":188},
-"tank_green_png":{"x":169,"y":334,"w":164,"h":164,"offX":7,"offY":12,"sourceW":174,"sourceH":188},
-"tank_blue_png":{"x":1,"y":334,"w":164,"h":164,"offX":7,"offY":12,"sourceW":174,"sourceH":188},
-"hay_png":{"x":342,"y":1,"w":296,"h":312,"offX":0,"offY":0,"sourceW":296,"sourceH":312},
+"bullet_png":{"x":505,"y":317,"w":30,"h":46,"offX":0,"offY":0,"sourceW":30,"sourceH":46},
 "grass_png":{"x":1,"y":1,"w":337,"h":329,"offX":0,"offY":0,"sourceW":337,"sourceH":329},
-"bullet_png":{"x":505,"y":317,"w":30,"h":46,"offX":0,"offY":0,"sourceW":30,"sourceH":46}}}
+"hay_png":{"x":342,"y":1,"w":296,"h":312,"offX":0,"offY":0,"sourceW":296,"sourceH":312},
+"tank_blue_png":{"x":1,"y":334,"w":164,"h":164,"offX":7,"offY":12,"sourceW":174,"sourceH":188},
+"tank_green_png":{"x":337,"y":334,"w":164,"h":164,"offX":7,"offY":12,"sourceW":174,"sourceH":188},
+"tank_red_png":{"x":169,"y":334,"w":164,"h":164,"offX":7,"offY":12,"sourceW":174,"sourceH":188}}}
