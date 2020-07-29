@@ -16,25 +16,41 @@ module game {
                 case 37: //ArrowLeft
                     console.log('向左')
                     tankPosition = GameCenter.gameContainer.getTankPosition('x');
-                    if (tankPosition >= 300) GameCenter.gameContainer.moveTank('x', -30);
+                    if (tankPosition >= 300){
+                        GameCenter.gameContainer.moveTank('x', -30);
+                    } else {
+                        GameCenter.gameContainer.getBgMap().start('Left',10);
+                    }
                     GameCenter.gameContainer.setTankrotationAngle(-90);
                     break
                 case 38: // ArrowUp
                     console.log('向上')
                     tankPosition = GameCenter.gameContainer.getTankPosition('y');
-                    if (tankPosition >= 300) GameCenter.gameContainer.moveTank('y', -30);
+                    if (tankPosition >= 300){
+                        GameCenter.gameContainer.moveTank('y', -30);
+                    } else {
+                        GameCenter.gameContainer.getBgMap().start('Up',10);
+                    }
                     GameCenter.gameContainer.setTankrotationAngle(0);
                     break
                 case 39: // ArrowRight
                     console.log('向右')
                     tankPosition = GameCenter.gameContainer.getTankPosition('x');
-                    if (tankPosition <= GameCenter.sceneRoot.stage.stageWidth - 300) GameCenter.gameContainer.moveTank('x', +30);
+                    if (tankPosition <= GameCenter.sceneRoot.stage.stageWidth - 300){
+                        GameCenter.gameContainer.moveTank('x', +30);
+                    } else {
+                        GameCenter.gameContainer.getBgMap().start('Right',10);
+                    }
                     GameCenter.gameContainer.setTankrotationAngle(90);
                     break
                 case 40: // ArrowDown
                     console.log('向下')
                     tankPosition = GameCenter.gameContainer.getTankPosition('y');
-                    if (tankPosition <= GameCenter.sceneRoot.stage.stageHeight - 300) GameCenter.gameContainer.moveTank('y', +30);
+                    if (tankPosition <= GameCenter.sceneRoot.stage.stageHeight - 300){
+                        GameCenter.gameContainer.moveTank('y', +30);
+                    } else {
+                        GameCenter.gameContainer.getBgMap().start('Down',10);
+                    }
                     GameCenter.gameContainer.setTankrotationAngle(180);
                     break
                 case 13: // Enter

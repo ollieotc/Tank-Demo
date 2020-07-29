@@ -1,4 +1,5 @@
 module game {
+  	/** 主遊戲容器 */
   export class GameContainer extends egret.DisplayObjectContainer {
 
     private bg: game.BgMap;
@@ -18,12 +19,17 @@ module game {
     private createGameScene(): void {
       this.bg = new game.BgMap();
       this.addChild(this.bg);
-      // this.bg.start();  // 背景開始滾動
+      console.log(this.bg.x,this.bg.y)
 
       this.tank = new game.Tank('red');
       this.tank.x = this.stage.stageWidth / 2;
       this.tank.y = this.stage.stageHeight / 2;
       this.addChild(this.tank)
+      // this.bg.start();  // 背景開始滾動
+    }
+
+    public getBgMap(){
+      return this.bg;
     }
 
     public getTankPosition(direction: string): number {
@@ -35,13 +41,11 @@ module game {
     }
 
     public changTankColor() {
-      let color = this.tank.getColor();
-      let getIndex = this.colorList.indexOf(color);
-      (getIndex + 1) > 2 ? this.tank.setTankColor(this.colorList[0]) : this.tank.setTankColor(this.colorList[getIndex + 1]);
+      this.tank.setTankColor();
     }
 
     public setTankrotationAngle(num: number): void {
-      this.tank.setRotation(num);
+      this.tank.rotation = num;
     }
   }
 }
