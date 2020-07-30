@@ -3,6 +3,7 @@
 		"libs/modules/egret/egret.js",
 		"libs/modules/egret/egret.web.js",
 		"libs/modules/eui/eui.js",
+		"libs/modules/dragonBones/dragonBones.js",
 		"libs/modules/assetsmanager/assetsmanager.js",
 		"libs/modules/game/game.js",
 		"libs/modules/tween/tween.js",
@@ -12,19 +13,22 @@
 	],
 	"game": [
 		"bin-debug/model/SceneModel.js",
-		"bin-debug/component/Tank.js",
+		"bin-debug/logic/InitLogic.js",
 		"bin-debug/center/AssetAdapter.js",
 		"bin-debug/center/GameCenter.js",
 		"bin-debug/center/Platform.js",
 		"bin-debug/center/ThemeAdapter.js",
 		"bin-debug/component/BgMap.js",
+		"bin-debug/component/Bullet.js",
+		"bin-debug/component/Tank.js",
 		"bin-debug/Main.js",
-		"bin-debug/logic/InitLogic.js",
+		"bin-debug/logic/Pool.js",
 		"bin-debug/logic/Scene.js",
 		"bin-debug/logic/scene/GameContainer.js",
 		"bin-debug/model/GameModel.js",
 		"bin-debug/model/Interface.js",
 		"bin-debug/LoadingUI.js",
+		"bin-debug/utils/AnimationDB.js",
 		"bin-debug/utils/GameKeyboard.js"
 	]
 }
