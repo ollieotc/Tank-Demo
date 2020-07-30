@@ -71,7 +71,6 @@ module game {
                 }
                 this.bmpArr.push(bgData);
             }
-            console.log(this.bmpArr)
             this.x = (this.stageW - this.width) / 2;
             this.y = (this.stageH - this.height) / 2;
         }
@@ -80,7 +79,7 @@ module game {
         private enterFrameHandler(direction: string, speed: number): void {
             let _directionType = direction;
             if (_directionType == 'Up' || _directionType == 'Down') {
-                this.y += this.speed;
+                GameCenter.gameContainer.moveBg.y += this.speed;
                 for (let i: number = 0; i < this.rowCount; i++) {
                     let bitmap = this.bmpArr[i];
                     if (_directionType == 'Down' && this.y < -1 * (bitmap[0].y + this.textureHeight)) {
@@ -95,7 +94,7 @@ module game {
                     }
                 }
             } else {
-                this.x += this.speed;
+                GameCenter.gameContainer.moveBg.x += this.speed;
                 let bitmap = this.bmpArr;
                 for (let i: number = 0; i < this.colCount; i++) {
                     if (_directionType == 'Right' && this.x < -1 * (bitmap[0][i].x + this.textureWidth)) {

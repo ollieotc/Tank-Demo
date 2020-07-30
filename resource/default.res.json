@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "boom_ske_json,boom_tex_json,boom_tex_png,shot_ske_json,shot_tex_json,shot_tex_png,bg_png,tank_red_png,tank_green_png,tank_blue_png,hay_png,grass_png,bullet_png",
+			"keys": "boom_ske_json,boom_tex_json,boom_tex_png,shot_ske_json,shot_tex_json,shot_tex_png,up_png,tank_red_png,tank_green_png,tank_blue_png,right_png,left_png,hay_png,grass_png,down_png,change_png,bullet_png,bg_png,attank_png",
 			"name": "preload"
 		}
 	],
@@ -70,6 +70,36 @@
 			"url": "assets/img/tank_red.png",
 			"type": "image",
 			"name": "tank_red_png"
+		},
+		{
+			"url": "assets/img/attank.png",
+			"type": "image",
+			"name": "attank_png"
+		},
+		{
+			"url": "assets/img/change.png",
+			"type": "image",
+			"name": "change_png"
+		},
+		{
+			"url": "assets/img/down.png",
+			"type": "image",
+			"name": "down_png"
+		},
+		{
+			"url": "assets/img/left.png",
+			"type": "image",
+			"name": "left_png"
+		},
+		{
+			"url": "assets/img/right.png",
+			"type": "image",
+			"name": "right_png"
+		},
+		{
+			"url": "assets/img/up.png",
+			"type": "image",
+			"name": "up_png"
 		}
 	]
 }
