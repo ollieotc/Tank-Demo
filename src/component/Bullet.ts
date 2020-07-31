@@ -5,11 +5,11 @@ module game {
 
 		public constructor(obj) {
 			super();
-			this.x = obj.x
-			this.y = obj.y
+			this.x = obj.x;
+			this.y = obj.y;
 			this.rotation = obj.rotation;
 			this.source = `bullet_png`;
-			this.scaleX = this.scaleY = 0.8;
+			this.anchorOffsetX = this.anchorOffsetY = 0.5;
 			this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
 		}
 
@@ -23,25 +23,25 @@ module game {
 		/** 新增 or 取出 */
 		static produce(obj): Bullet {
 			let theArr = Bullet._bullet;
-			let theBullet: Bullet
+			let theBullet: Bullet;
 			if (theArr.length > 0) {
-				theBullet = theArr.pop()
-				theBullet.x = obj.x
-				theBullet.y = obj.y
+				theBullet = theArr.pop();
+				theBullet.x = obj.x;
+				theBullet.y = obj.y;
 				theBullet.rotation = obj.rotation;
 				theBullet.source = `bullet_png`;
 			} else {
-				theBullet = new Bullet(obj)
+				theBullet = new Bullet(obj);
 			}
-			return theBullet
+			return theBullet;
 		}
 
 		/** 回收 */
 		static reclaim(theBullet: Bullet) {
-			let theArr: any[] = Bullet._bullet
+			let theArr: any[] = Bullet._bullet;
 
 			if (theArr.indexOf(theArr) == -1) {
-				theArr.push(theBullet)
+				theArr.push(theBullet);
 				// console.log('存進對象池');
 			}
 		}
@@ -49,63 +49,63 @@ module game {
 		/** 清除 */
 		public clearItme() {
 			if (this.parent) {
-				Bullet.reclaim(this)
-				this.parent.removeChild(this)
+				Bullet.reclaim(this);
+				this.parent.removeChild(this);
 			}
 		}
 
 		/**爆炸 */
 		public shooting(rotation) {
 
-			this.tik = setInterval(()=>{
+			this.tik = setInterval(() => {
 				let apl;
 				let total;
-				if(rotation == 0){
-					apl = this.y; 
+				if (rotation == 0) {
+					apl = this.y;
 					total = 0;
-					this.y -= 100;
+					this.y -= 60;
 				}
-				if(rotation == 90){
-					apl = this.x; 
+				if (rotation == 90) {
+					apl = this.x;
 					total = GameCenter.sceneRoot.stage.stageWidth;
-					this.x += 100;
-				} 
-				if(rotation == 180){
-					apl = this.y; 
+					this.x += 60;
+				}
+				if (rotation == 180) {
+					apl = this.y;
 					total = GameCenter.sceneRoot.stage.stageHeight;
-				 this.y += 100;
+					this.y += 60;
 				}
-				if(rotation == -90){
-					apl = this.x; 
+				if (rotation == -90) {
+					apl = this.x;
 					total = 0;
-				  this.x -= 100;
+					this.x -= 60;
 				}
-					this.fly(apl,total)
-			},100);
+				this.fly(apl, total);
+			}, 100);
 		}
 
-		public fly(apl,total) {
+		public fly(apl, total) {
 			let isHit = GameCenter.gameContainer.isHitCanShoot(this);
-			if(isHit){
+			if (isHit) {
 				this.boomFinish();
-			} 
-			if(total == 0 && apl < total){
+			}
+			if (total == 0 && apl < total) {
 				clearInterval(this.tik);
 				this.clearItme();
-			} 
-			if(total != 0 && apl > total){
+			}
+			if (total != 0 && apl > total) {
 				clearInterval(this.tik);
 				this.clearItme();
-			} 
+			}
 		}
 
 		/**爆炸完成 */
 		private boomFinish() {
 			clearInterval(this.tik);
-			this.source = `boom_03_png`
-			setTimeout(()=>{
+			this.source = `boom_03_png`;
+			setTimeout(() => {
 				this.clearItme();
-			},200)
+			}, 200)
 		}
 
 	}

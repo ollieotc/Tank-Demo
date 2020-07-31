@@ -22,31 +22,7 @@ module game {
             this.stageH = this.stage.stageHeight;
             this.init();
         }
-
-        // /** 滾動 - ENTER_FRAME */
-        // private enterFrameHandler(event: egret.Event, direction: string) {
-        //     let item;
-        //     if (direction == 'up' || direction == 'down') {
-        //         item = this.rowCount;
-        //     } else {
-        //         item = this.colCount;
-        //     }
-        //     for (let i: number = 0; i < item; i++) {
-        //         if (this.bmpArr[i].x <= -1 * this.textureWidth) {
-        //             let bgBmp: egret.Bitmap = this.bmpArr[i];
-        //             bgBmp.x = this.bmpArr[this.rowCount - 1].x + this.textureWidth;
-
-        //             this.bmpArr.shift();
-        //             this.bmpArr.push(bgBmp);
-        //             // 處理位置跳格問題
-        //             this.bmpArr.forEach(bmp => {
-        //                 bmp.x += this.speed;
-        //             });
-        //         }
-        //         this.bmpArr[i].x -= this.speed;
-        //     }
-        // }
-
+        
         /** 初始化背景图 */
         private init(): void {
             let texture: egret.Texture = RES.getRes("bg_png");
@@ -103,8 +79,8 @@ module game {
                         bitmap[0][i].x = bitmap[this.rowCount - 1][i].x + this.textureWidth;
                     }
                     if (_directionType == 'left') {
-                        // if (this.x > -1 * (this.bmpArr[this.rowCount - 1][i].x + this.textureWidth)) {
-                        // this.bmpArr[this.rowCount - 1][i].x = -(this.textureWidth + this.bmpArr[0][i].x);
+                        // if (this.x > -1 * (bitmap[this.rowCount - 1][i].x + this.textureWidth)) {
+                        //     bitmap[this.rowCount - 1][i].x = -(this.textureWidth + bitmap[0][i].x);
                         // }
                     }
                 }

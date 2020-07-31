@@ -18,7 +18,7 @@ module game {
     public tickTime: number; // 心跳开始的时间
 
     public tweenArr: egret.Tween[] = [] // 缓动动画组
-    public poolArr: Pool[] = [];
+    public poolArr: Obstacle[] = [];
 
     public constructor() {
       super();
@@ -93,37 +93,37 @@ module game {
       })
     }
 
-    private updateScoreText(){
-      this.scoreLabel.text = `score:${this.scoreText}`
+    private updateScoreText() {
+      this.scoreLabel.text = `score:${this.scoreText}`;
     }
 
     /**創建障礙物,添加到數組 */
     private createEnemy() {
       let enemyType: number = Math.floor(Math.random() * 2);  // 隨機挑選
-      let enemyX: number = Math.floor(Math.random() * this.bg.width + 1)
-      let enemyY: number = Math.floor(Math.random() * this.bg.height + 1)
-      enemyX = Math.max(enemyX, 0)
-      enemyX = Math.min(enemyX, this.bg.width - 320)
-      enemyY = Math.max(enemyY, 0)
-      enemyY = Math.min(enemyY, this.bg.height - 320)
-      let newEnemy = Pool.produce({ x: enemyX, y: enemyY, type: enemyType });
+      let enemyX: number = Math.floor(Math.random() * this.bg.width + 1);
+      let enemyY: number = Math.floor(Math.random() * this.bg.height + 1);
+      enemyX = Math.max(enemyX, 0);
+      enemyX = Math.min(enemyX, this.bg.width - 320);
+      enemyY = Math.max(enemyY, 0);
+      enemyY = Math.min(enemyY, this.bg.height - 320);
+      let newEnemy = Obstacle.produce({ x: enemyX, y: enemyY, type: enemyType });
       if (!this.isHitGourpItem(newEnemy)) {
-        this.obstacleList.addChildAt(newEnemy, this.numChildren - 10)
+        this.obstacleList.addChildAt(newEnemy, this.numChildren - 10);
         this.poolArr.push(newEnemy);
       } else {
-        Pool.reclaim(newEnemy)
+        Obstacle.reclaim(newEnemy);
       }
     }
 
     /** 更新 */
     private updata(timeStamp): boolean {
       // this.scoreLabel.text = `score : ${'' + this.scoreText}`
-      this.timeLabel.text = `time : ${(Math.floor(timeStamp / 1000))}`
+      this.timeLabel.text = `time : ${(Math.floor(timeStamp / 1000))}`;
 
       // 生成障礙物
       if (timeStamp - this.tickTime >= 5000) {
-        this.tickTime = timeStamp
-        this.createEnemy()
+        this.tickTime = timeStamp;
+        this.createEnemy();
       }
       return false
     }
@@ -134,11 +134,10 @@ module game {
       for (let i = this.poolArr.length - 1; i >= 0; i--) {
         let theEnemy = this.poolArr[i];
         if (game.hitTest(theEnemy, newItem)) {
-          // console.log('障礙物撞擊');
           isHit = true;
           break
-        } else if (game.hitTest(newItem, this.tank)) {
-          // console.log('跟坦克撞擊');
+        }
+        if (game.hitTest(newItem, this.tank)) {
           isHit = true;
           break
         }
@@ -146,17 +145,17 @@ module game {
       return isHit;
     }
 
-     /**是否有重疊 */
+    /**是否有攻擊到 */
     public isHitCanShoot(newItem): boolean {
       let isHit: boolean = false;
       for (let i = this.poolArr.length - 1; i >= 0; i--) {
         let theEnemy = this.poolArr[i];
         if (game.hitTest(theEnemy, newItem)) {
-          if(theEnemy.canShoot){
+          if (theEnemy.canShoot) {
             theEnemy.hp -= this.tank.damage;
-            if(theEnemy.hp <= 0){
+            if (theEnemy.hp <= 0) {
               theEnemy.clearItme();
-            } 
+            }
           }
           isHit = true;
           break
@@ -169,19 +168,19 @@ module game {
       let enemyX, enemyY
       let rotation = this.tank.rotation
       if (rotation == 90) {
-        enemyX = this.tank.x + this.tank.width - 20
-        enemyY = this.tank.y - 10
+        enemyX = this.tank.x + this.tank.width - 30;
+        enemyY = this.tank.y - 6;
       } else if (rotation == 180) {
-        enemyX = this.tank.x + 10
-        enemyY = this.tank.y + this.tank.height - 20
+        enemyX = this.tank.x + 6;
+        enemyY = this.tank.y + this.tank.height - 30;
       } else if (rotation == -90) {
-        enemyX = this.tank.x - this.tank.width + 20
-        enemyY = this.tank.y + this.tank.height / 2 - 30;
+        enemyX = this.tank.x - this.tank.width + 30;
+        enemyY = this.tank.y + this.tank.height / 2 - 38;
       } else {
-        enemyX = this.tank.x - 10
-        enemyY = this.tank.y - this.tank.height / 2 - 20
+        enemyX = this.tank.x - 6;
+        enemyY = this.tank.y - this.tank.height / 2 - 10;
       }
-      let newEnemy = Bullet.produce({ x: enemyX, y: enemyY, rotation: rotation })
+      let newEnemy = Bullet.produce({ x: enemyX, y: enemyY, rotation: rotation });
       this.addChild(newEnemy);
       newEnemy.shooting(rotation);
     }
@@ -192,7 +191,7 @@ module game {
 
     public async moveTank(direction: string, num: number) {
       this.tank[direction] = this.tank[direction] + num;
-      if (!await this.tank.canMove()) this.tank[direction] = this.tank[direction] - num
+      if (!await this.tank.canMove()) this.tank[direction] = this.tank[direction] - num;
     }
 
     public changTankColor() {
@@ -210,7 +209,7 @@ module game {
         this.moveTank(apl, -30);
       } else if (direction == 'right' && (this.getTankPosition(apl) <= GameCenter.sceneRoot.stage.stageWidth - 300)) {
         this.moveTank(apl, +30);
-      }  else if(direction == 'down' && (this.getTankPosition(apl) <= 1080 - 300)){
+      } else if (direction == 'down' && (this.getTankPosition(apl) <= 1080 - 300)) {
         this.moveTank(apl, +30);
       } else {
         this.bg.start(direction, 10);

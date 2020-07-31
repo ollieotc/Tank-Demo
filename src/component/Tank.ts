@@ -9,7 +9,7 @@ module game {
 
     public constructor(color) {
       super();
-      this.color = color
+      this.color = color;
       this.damage = GameCenter.sceneModel.tankDamage[this.color];
       this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }

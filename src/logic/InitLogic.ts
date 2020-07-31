@@ -3,7 +3,7 @@ module game {
     /** 初始 */
     export function init(): void {
         mouse.enable(GameCenter.sceneRoot.stage);  // 啟用滑鼠庫
-        // this.setGameKeyboard(); // 設置鍵盤
+        this.setGameKeyboard(); // 設置鍵盤
         // this.animation();
         let scene: egret.DisplayObjectContainer = GameCenter.sceneModel;
         if (scene) GameCenter.sceneRoot.addChild(scene);
@@ -13,34 +13,34 @@ module game {
 
     }
 
-    // export function setGameKeyboard(): void {
-    //     document.addEventListener("keydown", function (evt: any) {
-    //         let tankPosition;
-    //         switch (evt.keyCode) {
-    //             case 37: //ArrowLeft
-    //                 GameCenter.gameContainer.setButtonEvent('left');
-    //                 break
-    //             case 38: // ArrowUp
-    //                 // console.log('向上')
-    //                 GameCenter.gameContainer.setButtonEvent('up');
-    //                 break
-    //             case 39: // ArrowRight
-    //                 // console.log('向右')
-    //                 GameCenter.gameContainer.setButtonEvent('right');
-    //                 break
-    //             case 40: // ArrowDown
-    //                 // console.log('向下')
-    //                 GameCenter.gameContainer.setButtonEvent('down');
-    //                 break
-    //             case 13: // Enter
-    //                 GameCenter.gameContainer.changTankColor();
-    //                 break
-    //             case 32: // Space
-    //                 GameCenter.gameContainer.shootBullet();
-    //                 break
-    //         }
-    //     })
-    // }
+    export function setGameKeyboard(): void {
+        document.addEventListener("keydown", function (evt: any) {
+            let tankPosition;
+            switch (evt.keyCode) {
+                case 37: //ArrowLeft
+                    GameCenter.gameContainer.setButtonEvent('left');
+                    break
+                case 38: // ArrowUp
+                    // console.log('向上')
+                    GameCenter.gameContainer.setButtonEvent('up');
+                    break
+                case 39: // ArrowRight
+                    // console.log('向右')
+                    GameCenter.gameContainer.setButtonEvent('right');
+                    break
+                case 40: // ArrowDown
+                    // console.log('向下')
+                    GameCenter.gameContainer.setButtonEvent('down');
+                    break
+                case 13: // Enter
+                    GameCenter.gameContainer.changTankColor();
+                    break
+                case 32: // Space
+                    GameCenter.gameContainer.shootBullet();
+                    break
+            }
+        })
+    }
 
     /** 根據name關鍵字創建一個Bitmap對象。name屬性請參考resources/resource.json配置文件的內容。 */
     export function createBitmapByName(name: string): egret.Bitmap {

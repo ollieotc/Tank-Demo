@@ -13,7 +13,7 @@
 	],
 	"game": [
 		"bin-debug/model/SceneModel.js",
-		"bin-debug/component/Tank.js",
+		"bin-debug/component/Obstacle.js",
 		"bin-debug/center/AssetAdapter.js",
 		"bin-debug/center/GameCenter.js",
 		"bin-debug/center/Platform.js",
@@ -22,8 +22,8 @@
 		"bin-debug/component/Bullet.js",
 		"bin-debug/component/Button.js",
 		"bin-debug/Main.js",
+		"bin-debug/component/Tank.js",
 		"bin-debug/logic/InitLogic.js",
-		"bin-debug/logic/Pool.js",
 		"bin-debug/logic/Scene.js",
 		"bin-debug/logic/scene/GameContainer.js",
 		"bin-debug/model/GameModel.js",
