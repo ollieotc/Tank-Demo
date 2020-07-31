@@ -1,58 +1,112 @@
 module game {
-  export class Bullet extends eui.Component {
+	export class Bullet extends eui.Image {
 
-    private bullet: eui.Image;
+		private tik;
 
-    public constructor(color) {
-      super();
-      this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
-    }
+		public constructor(obj) {
+			super();
+			this.x = obj.x
+			this.y = obj.y
+			this.rotation = obj.rotation;
+			this.source = `bullet_png`;
+			this.scaleX = this.scaleY = 0.8;
+			this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+		}
 
-    private onAddToStage(event: egret.Event) {
-      this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
-      this.bullet = new eui.Image();
-      this.bullet.source = `bullet_png`;
-      this.bullet.scaleX = this.bullet.scaleY = 0.5;
-      this.addChild(this.bullet);
-      // 設置中心點
-      this.bullet.anchorOffsetX = this.bullet.width / 2;
-      this.bullet.anchorOffsetY = this.bullet.height / 2;
-    }
+		private onAddToStage(event: egret.Event) {
+			this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+		}
 
-    /**爆炸 */
-	public shooting() {
-		// this.isHit()
-		// this.source = RES.getRes('GameScene-hd_json.GameScene_Explosion')
-		this.anchorOffsetX = this.width / 2
-		this.anchorOffsetY = this.height / 2
-		let tw = egret.Tween.get(this)
-		tw.to({ scaleX: 1.5, scaleY: 1.5, alpha: 0.5 }, 200).call(() => {
-			this.boomFinish()
-		})
+		/** 保存子彈的對象池 */
+		static _bullet: any = [];
+
+		/** 新增 or 取出 */
+		static produce(obj): Bullet {
+			let theArr = Bullet._bullet;
+			let theBullet: Bullet
+			if (theArr.length > 0) {
+				theBullet = theArr.pop()
+				theBullet.x = obj.x
+				theBullet.y = obj.y
+				theBullet.rotation = obj.rotation;
+				theBullet.source = `bullet_png`;
+			} else {
+				theBullet = new Bullet(obj)
+			}
+			return theBullet
+		}
+
+		/** 回收 */
+		static reclaim(theBullet: Bullet) {
+			let theArr: any[] = Bullet._bullet
+
+			if (theArr.indexOf(theArr) == -1) {
+				theArr.push(theBullet)
+				// console.log('存進對象池');
+			}
+		}
+
+		/** 清除 */
+		public clearItme() {
+			if (this.parent) {
+				Bullet.reclaim(this)
+				this.parent.removeChild(this)
+			}
+		}
+
+		/**爆炸 */
+		public shooting(rotation) {
+
+			this.tik = setInterval(()=>{
+				let apl;
+				let total;
+				if(rotation == 0){
+					apl = this.y; 
+					total = 0;
+					this.y -= 100;
+				}
+				if(rotation == 90){
+					apl = this.x; 
+					total = GameCenter.sceneRoot.stage.stageWidth;
+					this.x += 100;
+				} 
+				if(rotation == 180){
+					apl = this.y; 
+					total = GameCenter.sceneRoot.stage.stageHeight;
+				 this.y += 100;
+				}
+				if(rotation == -90){
+					apl = this.x; 
+					total = 0;
+				  this.x -= 100;
+				}
+					this.fly(apl,total)
+			},100);
+		}
+
+		public fly(apl,total) {
+			let isHit = GameCenter.gameContainer.isHitCanShoot(this);
+			if(isHit){
+				this.boomFinish();
+			} 
+			if(total == 0 && apl < total){
+				clearInterval(this.tik);
+				this.clearItme();
+			} 
+			if(total != 0 && apl > total){
+				clearInterval(this.tik);
+				this.clearItme();
+			} 
+		}
+
+		/**爆炸完成 */
+		private boomFinish() {
+			clearInterval(this.tik);
+			this.source = `boom_03_png`
+			setTimeout(()=>{
+				this.clearItme();
+			},200)
+		}
+
 	}
-
-	/**爆炸完成 */
-	private boomFinish() {
-		// let randownNum = Math.floor(Math.random()) * 3 + 1
-		// this.source = RES.getRes(`GameScene-hd_json.GameScene_MarcaPiso${randownNum}`)
-		// this.anchorOffsetX = this.width / 2
-		// this.anchorOffsetY = this.height / 2
-		// setTimeout(() => {
-		// 	this.parent.removeChild(this)
-		// }, 700)
-	}
-	/**是否击中 */
-	public isHit() {
-
-		// for (let i = SceneManager.instance.gamescene.enemysArr.length - 1; i >= 0; i--) {
-		// 	let theEnemy = SceneManager.instance.gamescene.enemysArr[i]
-		// 	if (SceneManager.hitTest(theEnemy, this)) {
-		// 		console.log(theEnemy.hp);
-
-		// 		theEnemy.hp -= 1
-		// 	}
-		// }
-	}
-
-  }
 }
