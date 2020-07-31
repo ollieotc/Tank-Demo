@@ -1,35 +1,17 @@
 {
 	"initial": [
-		"libs/modules/egret/egret.js",
-		"libs/modules/egret/egret.web.js",
-		"libs/modules/eui/eui.js",
-		"libs/modules/dragonBones/dragonBones.js",
-		"libs/modules/assetsmanager/assetsmanager.js",
-		"libs/modules/game/game.js",
-		"libs/modules/tween/tween.js",
-		"libs/modules/promise/promise.js",
-		"libs/mouse/mouse.js",
-		"libs/greensock/greensock.js"
+		"js/egret.min_836d668b.js",
+		"js/egret.web.min_d1451e99.js",
+		"js/eui.min_493403ce.js",
+		"js/dragonBones.min_6252b9c4.js",
+		"js/assetsmanager.min_2ef412b7.js",
+		"js/game.min_a9c9e7a1.js",
+		"js/tween.min_6c5a88f9.js",
+		"js/promise.min_83a6a5d.js",
+		"js/mouse.min_c7a62a4b.js",
+		"js/greensock.min_a87fa2e0.js"
 	],
 	"game": [
-		"bin-debug/model/SceneModel.js",
-		"bin-debug/component/Obstacle.js",
-		"bin-debug/center/AssetAdapter.js",
-		"bin-debug/center/GameCenter.js",
-		"bin-debug/center/Platform.js",
-		"bin-debug/center/ThemeAdapter.js",
-		"bin-debug/component/BgMap.js",
-		"bin-debug/component/Bullet.js",
-		"bin-debug/component/Button.js",
-		"bin-debug/Main.js",
-		"bin-debug/component/Tank.js",
-		"bin-debug/logic/InitLogic.js",
-		"bin-debug/logic/Scene.js",
-		"bin-debug/logic/scene/GameContainer.js",
-		"bin-debug/model/GameModel.js",
-		"bin-debug/model/Interface.js",
-		"bin-debug/LoadingUI.js",
-		"bin-debug/utils/AnimationDB.js",
-		"bin-debug/utils/GameKeyboard.js"
+		"js/main.min_685546cb.js"
 	]
 }
