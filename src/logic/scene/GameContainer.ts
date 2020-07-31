@@ -9,11 +9,11 @@ module game {
     public tank: game.Tank;
     public scoreLabel: eui.Label;
     public timeLabel: eui.Label;
-    public testLabel: eui.Label;
+    // public testLabel: eui.Label;
     private colorList: string[] = ['red', 'blue', 'green'];
     private controlList: string[] = ['up', 'down', 'left', 'right', 'attank', 'change'];
 
-    private emenyInit: number = 15;
+    private emenyInit: number = 30;
     public scoreText: number = 0;  // 得分
     public tickTime: number; // 心跳开始的时间
 
@@ -45,10 +45,7 @@ module game {
 
       this.moveBg = new eui.Group;
       this.addChild(this.moveBg);
-     
-      this.controlPanel = new eui.Group;
-      this.controlPanel.y = this.stage.stageHeight -200;
-      this.addChild(this.controlPanel);
+
 
       this.bg = new game.BgMap();
       this.moveBg.addChild(this.bg);
@@ -58,8 +55,13 @@ module game {
       this.tank.y = this.stage.stageHeight / 2;
       this.addChild(this.tank);
 
+
       this.obstacleList = new eui.Group;
       this.moveBg.addChild(this.obstacleList);
+
+      this.controlPanel = new eui.Group;
+      this.controlPanel.y = this.stage.stageHeight - 200;
+      this.addChild(this.controlPanel);
 
       this.scoreLabel = new eui.Label();
       this.scoreLabel.textColor = 0x000000;
@@ -74,20 +76,25 @@ module game {
       this.addChild(this.timeLabel);
 
 
-      this.testLabel = new eui.Label();
-      this.testLabel.textColor = 0x000000;
-      this.testLabel.x = this.stage.stageWidth / 2;
-      this.testLabel.y = 10;
-      this.testLabel.text = `測試碰撞中`
-      this.addChild(this.testLabel);
+      // this.testLabel = new eui.Label();
+      // this.testLabel.textColor = 0x000000;
+      // this.testLabel.x = this.stage.stageWidth / 2;
+      // this.testLabel.y = 10;
+      // this.testLabel.text = `測試碰撞中`
+      // this.addChild(this.testLabel);
     }
 
     /** 創造控制面板 */
     private createControl() {
       this.controlList.forEach(item => {
         let newButton = new Button(item);
+        this.buttonListener(newButton);
         this.controlPanel.addChild(newButton);
       })
+    }
+
+    private updateScoreText(){
+      this.scoreLabel.text = `score:${this.scoreText}`
     }
 
     /**創建障礙物,添加到數組 */
@@ -110,12 +117,13 @@ module game {
 
     /** 更新 */
     private updata(timeStamp): boolean {
-      this.scoreLabel.text = `score : ${'' + this.scoreText}`
+      // this.scoreLabel.text = `score : ${'' + this.scoreText}`
       this.timeLabel.text = `time : ${(Math.floor(timeStamp / 1000))}`
 
-      if (timeStamp - this.tickTime >= 8000) {
+      // 生成障礙物
+      if (timeStamp - this.tickTime >= 5000) {
         this.tickTime = timeStamp
-        this.createEnemy()  // 生成障礙物
+        this.createEnemy()
       }
       return false
     }
@@ -138,9 +146,44 @@ module game {
       return isHit;
     }
 
+     /**是否有重疊 */
+    public isHitCanShoot(newItem): boolean {
+      let isHit: boolean = false;
+      for (let i = this.poolArr.length - 1; i >= 0; i--) {
+        let theEnemy = this.poolArr[i];
+        if (game.hitTest(theEnemy, newItem)) {
+          if(theEnemy.canShoot){
+            theEnemy.hp -= this.tank.damage;
+            if(theEnemy.hp <= 0){
+              theEnemy.clearItme();
+            } 
+          }
+          isHit = true;
+          break
+        }
+      }
+      return isHit;
+    }
 
-    public getBgMap() {
-      return this.bg;
+    public shootBullet() {
+      let enemyX, enemyY
+      let rotation = this.tank.rotation
+      if (rotation == 90) {
+        enemyX = this.tank.x + this.tank.width - 20
+        enemyY = this.tank.y - 10
+      } else if (rotation == 180) {
+        enemyX = this.tank.x + 10
+        enemyY = this.tank.y + this.tank.height - 20
+      } else if (rotation == -90) {
+        enemyX = this.tank.x - this.tank.width + 20
+        enemyY = this.tank.y + this.tank.height / 2 - 30;
+      } else {
+        enemyX = this.tank.x - 10
+        enemyY = this.tank.y - this.tank.height / 2 - 20
+      }
+      let newEnemy = Bullet.produce({ x: enemyX, y: enemyY, rotation: rotation })
+      this.addChild(newEnemy);
+      newEnemy.shooting(rotation);
     }
 
     public getTankPosition(direction: string): number {
@@ -149,7 +192,7 @@ module game {
 
     public async moveTank(direction: string, num: number) {
       this.tank[direction] = this.tank[direction] + num;
-      if (!await GameCenter.gameContainer.tank.canMove()) this.tank[direction] = this.tank[direction] - num
+      if (!await this.tank.canMove()) this.tank[direction] = this.tank[direction] - num
     }
 
     public changTankColor() {
@@ -161,44 +204,36 @@ module game {
     }
 
     public setButtonEvent(direction) {
-      switch (direction) {
-        case 'Left':
-          // console.log('向左')
-          if (GameCenter.gameContainer.getTankPosition('x') >= 300) {
-            GameCenter.gameContainer.moveTank('x', -30);
-          } else {
-            GameCenter.gameContainer.getBgMap().start('Left', 10);
-          }
-          GameCenter.gameContainer.setTankrotationAngle(-90);
-          break
-        case 'Up':
-          // console.log('向上')
-          if (GameCenter.gameContainer.getTankPosition('y') >= 300) {
-            GameCenter.gameContainer.moveTank('y', -30);
-          } else {
-            GameCenter.gameContainer.getBgMap().start('Up', 10);
-          }
-          GameCenter.gameContainer.setTankrotationAngle(0);
-          break
-        case 'Right': // ArrowRight
-          // console.log('向右')
-          if (GameCenter.gameContainer.getTankPosition('x') <= GameCenter.sceneRoot.stage.stageWidth - 300) {
-            GameCenter.gameContainer.moveTank('x', +30);
-          } else {
-            GameCenter.gameContainer.getBgMap().start('Right', 10);
-          }
-          GameCenter.gameContainer.setTankrotationAngle(90);
-          break
-        case 'Down': // ArrowDown
-          // console.log('向下')
-          if (GameCenter.gameContainer.getTankPosition('y') <= GameCenter.sceneRoot.stage.stageHeight - 300) {
-            GameCenter.gameContainer.moveTank('y', +30);
-          } else {
-            GameCenter.gameContainer.getBgMap().start('Down', 10);
-          }
-          GameCenter.gameContainer.setTankrotationAngle(180);
-          break
+      let apl = (direction == 'left' || direction == 'right') ? 'x' : 'y';
+      let ang = { 'left': -90, 'up': 0, 'right': 90, 'down': 180 };
+      if ((direction == 'left' || direction == 'up') && this.getTankPosition(apl) >= 300) {
+        this.moveTank(apl, -30);
+      } else if (direction == 'right' && (this.getTankPosition(apl) <= GameCenter.sceneRoot.stage.stageWidth - 300)) {
+        this.moveTank(apl, +30);
+      }  else if(direction == 'down' && (this.getTankPosition(apl) <= 1080 - 300)){
+        this.moveTank(apl, +30);
+      } else {
+        this.bg.start(direction, 10);
+      }
+      this.setTankrotationAngle(ang[direction]);
+    }
+
+    private buttonListener(obj) {
+      if (obj.name == 'change' || obj.name == 'attank') {
+        let btnName = `${obj.name}BtnListener`;
+        this[btnName](obj);
+      } else {
+        obj.addEventListener(egret.TouchEvent.TOUCH_TAP, this.setButtonEvent.bind(this, obj.name), this);
       }
     }
+
+    private changeBtnListener(obj) {
+      obj.addEventListener(egret.TouchEvent.TOUCH_TAP, this.changTankColor, this);
+    }
+
+    private attankBtnListener(obj) {
+      obj.addEventListener(egret.TouchEvent.TOUCH_TAP, this.shootBullet, this);
+    }
+
   }
 }

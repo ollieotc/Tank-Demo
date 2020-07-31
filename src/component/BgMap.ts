@@ -78,39 +78,41 @@ module game {
         /** 滾動 - ENTER_FRAME */
         private enterFrameHandler(direction: string, speed: number): void {
             let _directionType = direction;
-            if (_directionType == 'Up' || _directionType == 'Down') {
-                GameCenter.gameContainer.moveBg.y += this.speed;
+            if (_directionType == 'up' || _directionType == 'down') {
+                this.y += this.speed;
+                GameCenter.gameContainer.obstacleList.y += this.speed;
                 for (let i: number = 0; i < this.rowCount; i++) {
                     let bitmap = this.bmpArr[i];
-                    if (_directionType == 'Down' && this.y < -1 * (bitmap[0].y + this.textureHeight)) {
+                    if (_directionType == 'down' && this.y < -1 * (bitmap[0].y + this.textureHeight)) {
                         bitmap[0].y = bitmap[this.colCount - 1].y + this.textureHeight;
                         let arrayMove = bitmap.shift();
                         this.bmpArr[i].push(arrayMove);
                     }
-                    if (_directionType == 'Up' && this.y > -1 * (bitmap[0].y + this.textureHeight)) {
+                    if (_directionType == 'up' && this.y > -1 * (bitmap[0].y + this.textureHeight)) {
                         bitmap[this.colCount - 1].y = -(this.textureHeight - bitmap[0].y);
                         let arrayMove = bitmap.pop();
                         this.bmpArr[i].unshift(arrayMove);
                     }
                 }
             } else {
-                GameCenter.gameContainer.moveBg.x += this.speed;
+                this.x += this.speed;
+                GameCenter.gameContainer.obstacleList.x += this.speed;
                 let bitmap = this.bmpArr;
                 for (let i: number = 0; i < this.colCount; i++) {
-                    if (_directionType == 'Right' && this.x < -1 * (bitmap[0][i].x + this.textureWidth)) {
+                    if (_directionType == 'right' && this.x < -1 * (bitmap[0][i].x + this.textureWidth)) {
                         bitmap[0][i].x = bitmap[this.rowCount - 1][i].x + this.textureWidth;
                     }
-                    if (_directionType == 'Left') {
+                    if (_directionType == 'left') {
                         // if (this.x > -1 * (this.bmpArr[this.rowCount - 1][i].x + this.textureWidth)) {
                         // this.bmpArr[this.rowCount - 1][i].x = -(this.textureWidth + this.bmpArr[0][i].x);
                         // }
                     }
                 }
-                if (_directionType == 'Right') {
+                if (_directionType == 'right') {
                     let arrayMove = this.bmpArr.shift();
                     this.bmpArr.push(arrayMove)
                 }
-                if (_directionType == 'Left') {
+                if (_directionType == 'left') {
                     // let arrayMove = this.bmpArr.pop();
                     // this.bmpArr.unshift(arrayMove)
                 }
@@ -124,7 +126,7 @@ module game {
          */
         public start(direction: string, speed: number = 0): void {
             speed = Math.abs(speed);
-            this.speed = (direction == 'Left' || direction == 'Up') ? speed : -speed;
+            this.speed = (direction == 'left' || direction == 'up') ? speed : -speed;
             this.enterFrameHandler(direction, speed);
         }
     }
